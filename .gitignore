@@ -1,3 +1,8 @@
+.data
+.local
+
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/go,intellij+all,visualstudiocode,macos,linux,node
 # Edit at https://www.toptal.com/developers/gitignore?templates=go,intellij+all,visualstudiocode,macos,linux,node
 
