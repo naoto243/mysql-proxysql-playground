@@ -16,13 +16,21 @@ services:
     ports:
       - 3308:3306
   proxysql:
-    image: proxysql/proxysql:2.0.12
-    container_name: proxysql-mysql-replication-proxysql
+    #platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: ./proxysql/Dockerfile
+    container_name: proxysql-mysql
+    environment:
+      PROXY_USER: root
+      PROXY_PASSWORD: rootpass
     ports:
       - 6032:6032
       - 6033:6033
       - 6080:6080
+    entrypoint: >
+      /bin/sh -c "envsubst < /etc/proxysql.cnf.template > /etc/proxysql.cnf && proxysql -f --idle-threads -D /var/lib/proxysql"
     volumes:
-      - ./proxysql/proxysql.cnf:/etc/proxysql.cnf
+      - ./proxysql/proxysql.cnf.template:/etc/proxysql.cnf.template
     depends_on:
       - mysql-master
