@@ -3,10 +3,12 @@ datadir="/var/lib/proxysql"
 
 admin_variables=
 {
-    admin_credentials="root:root_pass;"
+    admin_credentials="admin:rootpass;"
     mysql_ifaces="0.0.0.0:6032"
     refresh_interval=2000
-    stats_credentials="root:root_pass"
+    stats_credentials="stats:admin"
+    web_enabled=true
+    web_port=6080
 }
 
 mysql_variables=
@@ -21,15 +23,15 @@ mysql_variables=
     default_schema="information_schema"
     stacksize=1048576
     server_version="8.0"
-    monitor_username           = "root"
-    monitor_password           = "root_pass"
+    monitor_username           = "monitor"
+    monitor_password           = "proxysqlmonitor"
     commands_stats             = true
     sessions_sort              = true
 }
 
 mysql_servers =
 (
-    { address="mysql-master" , port=3308 , max_connections=100 , max_replication_lag = 5 }
+    { address="mysql-master" , port=3306 , hostgroup=10, max_connections=100 , max_replication_lag = 5 }
 )
 
 mysql_users =
